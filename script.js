@@ -1,70 +1,7 @@
-//create an object
-
-/*
-function Book(title, author, pages, read)
-{
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-
-    this.info = function info()
-    {
-        let information;
-        let readornot;
-        if (read) {readornot = "has";}
-        else{readornot = "has not";}
-        information = this.title + " by " + this.author + " is " + this.pages + " pages long, and " + readornot + " been read."
-        return information;
-    }
-}
-
-const coderbook = new Book("How to fuck up shit", "Ben Jones", 134, false)
-
-console.log(coderbook.info());
-*/
-
-
-
-
-//using the new way for prototypal inheritance!
-/*
-function Book()
-{
-
-}
-
-Book.prototype.info = function()
-{
-    let information;
-    let readornot;
-    if (this.read) {readornot = "has";}
-    else{readornot = "has not";}
-    information = this.title + " by " + this.author + " is " + this.pages + " pages long, and " + readornot + " been read."
-    return information;
-}
-
-function LibraryBook(title, author, pages, read)
-{
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-//use object.create
-//Object.create very simply returns a new object
-//with the specified prototype and any additional properties you want to add
-LibraryBook.prototype = Object.create(Book.prototype);
-
-const coderbook = new LibraryBook("How to fuck up shit", "Ben Jones", 134, false)
-
-console.log(coderbook.info());
-console.log(coderbook.title)
-*/
 
 let myLibrary = [];
 
+//create book class
 function Book(title, author, pages, read)
 {
     this.title = title;
@@ -73,43 +10,77 @@ function Book(title, author, pages, read)
     this.read = read;
 }
 
-Book.prototype.addBookToLibrary = function()
-{
-    myLibrary.push(this.info())
-}
 
-Book.prototype.info = function()
-{
-    let information;
-    let readornot;
-    if (this.read) {readornot = "has";}
-    else{readornot = "has not";}
-    information = this.title + " by " + this.author + " is " + this.pages + " pages long, and " + readornot + " been read."
-    return information;
-}
-
-//create a variable
+//function to create a section for each element of myLibrary array
 let page = document.getElementById("libraryShelf");
 
-function displayLibrary(inforrr)
-{
+function displayLibrary()
+{ let book = document.createElement("DIV");
+    if (page.contains(book)) {
+        page.remove();
+    }
     for (let index = 0; index < myLibrary.length; index++) {
         const element = myLibrary[index];
-        let book = document.createElement("DIV");
-        book.innerText = element;
-        page.appendChild(book);        
+        
+        //make a template literal for the html
+        let code = `
+        <h2>Title: ${element.title}</h2>
+        <p>Author: ${element.author}</p>
+        <p>Pages: ${element.pages}</p>
+        <p>Read: ${element.read}</p>
+        <button id="remove${index}" onclick="removeFromLibrary(${index})">Remove</button>
+        `
+        book.innerHTML = code;
+        page.appendChild(book);  
+        //create event listener for the elements button
+        // document.getElementById(`remove${index}`).addEventListener("click", removeFromLibrary)      
     }
 }
-const book1 = new Book("ben", "benh", 42, true);
-const book2 = new Book("abby", "benh", 42, true);
-const book3 = new Book("ben", "benh", 42, true);
-const book4 = new Book("ben", "benh", 42, true);
-const book5 = new Book("ben", "benh", 42, true);
 
-book1.addBookToLibrary();
-book2.addBookToLibrary();
-book3.addBookToLibrary();
-book4.addBookToLibrary();
-book5.addBookToLibrary();
+//up to this - removing items from the array and display!
+function removeFromLibrary(index)
+{
+    myLibrary = myLibrary.slice(index, 1);
+    displayLibrary();
+    
+}
 
-displayLibrary();
+//add new book form appear/dissapear
+let poppedup = true;
+function addBook()
+{
+    if (poppedup) {
+        console.log("working");
+    document.getElementById("popup").style = "display:inherit"
+    poppedup = false;
+
+    }
+    else if (!poppedup) {
+        
+        document.getElementById("popup").style = "display:none";
+        poppedup = true;
+    }    
+    
+}
+
+//get form data when submitted, apply to new book 
+let form = document.getElementById("form");
+let i = 0;
+
+
+function addBookToLibrary(i)
+{
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    let pages = document.getElementById("pages").value;
+    let read = document.getElementById("read").value;
+    i = new Book(title, author, pages, read);
+    
+    myLibrary.push(i)
+    displayLibrary();
+    i++
+     
+
+}
+
+
