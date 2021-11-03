@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Your personal library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap" rel="stylesheet"> 
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Library Project</h1>
+        <h1 id="username"></h1>
     </header>
     <main id="libraryShelf">
-
     </main>
-
     <!-- form -->
     <section id="popup">
         <div id="container">
-          <h1>New Book</h1>
-          <button class="close" onclick="addBook()">CLOSE</button>
+          <h1>New Book</h1>          
           <form id="form" action="/" method="GET">
             <label for="title">Title:</label>
+            <br>
             <input
               type="text"
               id="title"
@@ -32,6 +33,7 @@
               required
             /><br/>
             <label for="author">Author:</label>
+            <br>
             <input
               type="text"
               id="author"
@@ -40,7 +42,8 @@
               autocomplete="off"
               required
             /><br />
-            <label for="pages">Number of pages:</label>
+            <label for="pages">Pages:</label>
+            <br>
             <input
               type="number"
               id="pages"
@@ -49,21 +52,32 @@
               autocomplete="off"
               required
             /><br />
-            <label for="read">Read the book?</label><br />
+            <label for="read">Read?</label><br />
+            <br>
             <select name="read" id="read">
               <option value="true">Yes 😃</option>
               <option value="false">No 😢</option>
             </select>
             <br />
+            <label for="image">Image URL</label>
+            <br>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              placeholder="Image URL"
+              autocomplete="off"
+              
+            /><br />
+            <button class="close" onclick="addBook()">CLOSE</button>
             <input type="button" value="Submit" onclick="addBookToLibrary()" />
           </form>
         </div>
       </section>
-
-
-
     <footer>
-    <button id="addbutton" onclick="addBook()"><img src="images/add.png" alt="addButton" width="20%"></button>
+        <a href="https://github.com/BenMJones1/LibraryProject"><img src="images/git.PNG" alt="gitLogo" height="65px" class="link"></a>
+        
+    <button id="addbutton" onclick="addBook()"><img src="images/add.png" alt="addButton" ></button>
 </footer>
 </body>
 </html>

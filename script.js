@@ -2,12 +2,13 @@
 let myLibrary = [];
 
 //create book class
-function Book(title, author, pages, read)
+function Book(title, author, pages, read, image)
 {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.image = image;
 }
 
 
@@ -15,15 +16,23 @@ function Book(title, author, pages, read)
 let page = document.getElementById("libraryShelf");
 
 function displayLibrary()
-{ let book = document.createElement("DIV");
-    if (page.contains(book)) {
-        page.remove();
-    }
+{ 
+    let book = document.createElement("DIV");
+
+    //cant remember why this was here - 
+    //it cleared the page, but dont know why
+
+    // if (page.contains(book)) {
+    //     page.remove();
+    // }
+
+    //loop through the array and populate the info into div containers
     for (let index = 0; index < myLibrary.length; index++) {
         const element = myLibrary[index];
         
         //make a template literal for the html
         let code = `
+        <img src="${element.image}" width="250px" style="align-self: center"></img>
         <h2>Title: ${element.title}</h2>
         <p>Author: ${element.author}</p>
         <p>Pages: ${element.pages}</p>
@@ -31,10 +40,10 @@ function displayLibrary()
         <button id="remove${index}" onclick="removeFromLibrary(${index})">Remove</button>
         `
         book.innerHTML = code;
+        //add id for css
+        book.setAttribute("id", "bookDiv")
         page.appendChild(book);  
-        //create event listener for the elements button
-        // document.getElementById(`remove${index}`).addEventListener("click", removeFromLibrary)      
-    }
+        }
 }
 
 //up to this - removing items from the array and display!
@@ -46,25 +55,26 @@ function removeFromLibrary(index)
 }
 
 //add new book form appear/dissapear
-let poppedup = true;
+let poppedup = false;
 function addBook()
 {
-    if (poppedup) {
-        console.log("working");
-    document.getElementById("popup").style = "display:inherit"
-    poppedup = false;
+    if (!poppedup) {
+        //if it's not popped up but button is clicked..show box
+        document.getElementById("popup").style = "display:inherit"
+        poppedup = true;
 
     }
-    else if (!poppedup) {
-        
+    else if (poppedup) {
+        //if it was already popped up, dissapear, redraw divs
         document.getElementById("popup").style = "display:none";
-        poppedup = true;
-    }    
-    
+        poppedup = false;
+        displayLibrary();
+    }        
 }
 
 //get form data when submitted, apply to new book 
 let form = document.getElementById("form");
+//counter for creating individual book objects
 let i = 0;
 
 
@@ -74,13 +84,20 @@ function addBookToLibrary(i)
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
     let read = document.getElementById("read").value;
-    i = new Book(title, author, pages, read);
-    
+    let image;
+    //if there is no image url - make default image cover photo
+    if (document.getElementById("image").value === "") 
+        {image = "images/book.jpg"}
+    else
+        {image = document.getElementById("image").value;}
+    //create new object
+    i = new Book(title, author, pages, read, image);
+    //push book to array
     myLibrary.push(i)
     displayLibrary();
     i++
-     
-
 }
-
-
+//prompt got annoying fast
+// let username = prompt("What is your name?")
+let username = "Ben"
+document.getElementById("username").innerText = username + "'s Library";
