@@ -20,11 +20,6 @@ function displayLibrary()
 { 
     book = document.createElement("DIV");
 
-    //if divs are already present, want to clear them before redrawing
-    //but its not working
-    // book.innerHTML = "";
-    // page.innerHTML = "";
-    
 
     //loop through the array and populate the info into div containers
     for (let index = 0; index < myLibrary.length; index++) {
@@ -40,11 +35,12 @@ function displayLibrary()
             `
         book.innerHTML = code;
         //add id for css
-        book.setAttribute("id", "bookDiv")
+        book.setAttribute("id", `bookDiv${index}`)
         page.appendChild(book);  
         }
     
 }
+
 
 //up to this - removing items from the array and display!
 function removeFromLibrary(index)
@@ -54,13 +50,8 @@ function removeFromLibrary(index)
     console.log(newArray)
     console.log(myLibrary)
     
-    page.innerHTML = "";
-    document.getElementById("bookDiv").innerHTML = "";
-
-
-    displayLibrary();
-    
-    
+    //works but is hacky..
+    document.getElementById(`bookDiv${index}`).innerHTML = "";
 }
 
 //add new book form appear/dissapear
