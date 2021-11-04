@@ -12,45 +12,54 @@ function Book(title, author, pages, read, image)
 }
 
 
-//function to create a section for each element of myLibrary array
+//variables + function to create a section for each element of myLibrary array
 let page = document.getElementById("libraryShelf");
+let book;
 
 function displayLibrary()
 { 
-    let book = document.createElement("DIV");
+    book = document.createElement("DIV");
 
-    //cant remember why this was here - 
-    //it cleared the page, but dont know why
-
-    // if (page.contains(book)) {
-    //     page.remove();
-    // }
+    //if divs are already present, want to clear them before redrawing
+    //but its not working
+    // book.innerHTML = "";
+    // page.innerHTML = "";
+    
 
     //loop through the array and populate the info into div containers
     for (let index = 0; index < myLibrary.length; index++) {
-        const element = myLibrary[index];
-        
-        //make a template literal for the html
-        let code = `
-        <img src="${element.image}" width="250px" style="align-self: center"></img>
-        <h2>Title: ${element.title}</h2>
-        <p>Author: ${element.author}</p>
-        <p>Pages: ${element.pages}</p>
-        <p>Read: ${element.read}</p>
-        <button id="remove${index}" onclick="removeFromLibrary(${index})">Remove</button>
-        `
+        const element = myLibrary[index];        
+            //make a template literal for the html
+            let code = `
+            <img src="${element.image}" width="250px" style="align-self: center"></img>
+            <h2>Title: ${element.title}</h2>
+            <p>Author: ${element.author}</p>
+            <p>Pages: ${element.pages}</p>
+            <p>Read: ${element.read}</p>
+            <button id="remove${index}" onclick="removeFromLibrary(${index})">Remove</button>
+            `
         book.innerHTML = code;
         //add id for css
         book.setAttribute("id", "bookDiv")
         page.appendChild(book);  
         }
+    
 }
 
 //up to this - removing items from the array and display!
 function removeFromLibrary(index)
-{
-    myLibrary = myLibrary.slice(index, 1);
+{    
+    let newArray = myLibrary.splice(index, 1);
+
+    console.log(newArray)
+    console.log(myLibrary)
+    
+    page.innerHTML = "";
+    book.innerHTML = "";
+
+
     displayLibrary();
+    
     
 }
 
@@ -62,13 +71,14 @@ function addBook()
         //if it's not popped up but button is clicked..show box
         document.getElementById("popup").style = "display:inherit"
         poppedup = true;
+        // displayLibrary();
 
     }
     else if (poppedup) {
         //if it was already popped up, dissapear, redraw divs
         document.getElementById("popup").style = "display:none";
         poppedup = false;
-        displayLibrary();
+        // displayLibrary();
     }        
 }
 
@@ -98,6 +108,6 @@ function addBookToLibrary(i)
     i++
 }
 //prompt got annoying fast
-// let username = prompt("What is your name?")
+ //let username = prompt("What is your name?")
 let username = "Ben"
 document.getElementById("username").innerText = username + "'s Library";

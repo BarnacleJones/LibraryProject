@@ -16,7 +16,7 @@ header{
 }
 
 header > h1{
-    letter-spacing: 2px;    
+    letter-spacing: 5px;    
 }
 
 main{
@@ -24,7 +24,7 @@ main{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;    
-    gap: 20px;    
+    gap: 50px;    
 }
 
 main > div{
@@ -40,24 +40,22 @@ main > div > button{
 }
 
 footer{
-
     position: fixed;
     bottom: 10px;
     width: 100%;
     display:inline-flex;
-    /* justify-content: flex-start; */
-    
 }
 
 #addbutton{
 background-color: rgb(45, 124, 124);
 border: none;
-opacity: 1;
+opacity: .7;
 margin-left: 85%;
 /* width: 90%; */
 }
 #addbutton > img{
-    width: 40%;}
+    width: 40%;
+opacity:1;}
 
 #popup{
     display: none;
@@ -66,8 +64,8 @@ margin-left: 85%;
     background-image: url(images/background.png);
     background-size:cover;
     border-radius: 15px;
-    height: min-content;
-    width: 300%;
+    height:150%;
+    width: 175%;
     font-size: 1.5em;
     justify-content:left;
 }
