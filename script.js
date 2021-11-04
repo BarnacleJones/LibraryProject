@@ -55,7 +55,7 @@ function removeFromLibrary(index)
     console.log(myLibrary)
     
     page.innerHTML = "";
-    book.innerHTML = "";
+    document.getElementById("bookDiv").innerHTML = "";
 
 
     displayLibrary();
